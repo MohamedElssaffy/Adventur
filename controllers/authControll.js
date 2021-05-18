@@ -5,19 +5,16 @@ const User = require("../models/user");
 const AppError = require("../utils/appError");
 const Email = require("../utils/nodemailer");
 
-const signToken = (id, res) => {
+const signToken = (id, req, res) => {
   const token = jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
-  const cookieOptions = {
+  res.cookie("auth", token, {
     httpOnly: true,
     maxAge: 90 * 60 * 60 * 24 * 1000,
-  };
-
-  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
-
-  res.cookie("auth", token, cookieOptions);
+    secure: req.secure || req.headers["x-forwarded-proto"] === "https",
+  });
 
   return token;
 };
@@ -25,7 +22,7 @@ const signToken = (id, res) => {
 exports.singUp = catchAsync(async (req, res, next) => {
   const { email, name, password } = req.body;
   const user = new User({ name, email, password });
-  const token = signToken(user._id, res);
+  const token = signToken(user._id, req, res);
   user.tokens.push({ token });
   await user.save();
 
@@ -62,7 +59,7 @@ exports.logIn = catchAsync(async (req, res, next) => {
     return next(new AppError("Your Email Or Password Wrong", 401));
   }
 
-  const token = signToken(user._id, res);
+  const token = signToken(user._id, req, res);
   user.tokens.push({ token });
 
   await user.save();
@@ -201,7 +198,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   await user.save();
 
-  const token = signToken(user._id, res);
+  const token = signToken(user._id, req, req, res);
 
   res.json({
     status: "succ",
@@ -231,7 +228,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.password = password;
   user.passwordChangedAt = Date.now();
 
-  const token = signToken(user._id, res);
+  const token = signToken(user._id, req, res);
   user.tokens = [];
   user.tokens.push({ token });
 

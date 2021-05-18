@@ -18,6 +18,8 @@ const AppError = require("./utils/appError");
 
 const app = express();
 
+app.enable("trust proxy");
+
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "templates"));
 

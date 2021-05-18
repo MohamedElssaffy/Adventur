@@ -68,17 +68,6 @@ ReviewSchema.post(/(save|remove)/, function () {
   this.constructor.calAvgRat(this.tour);
 });
 
-//  This For Update Tour Avrage Rating When Make FindOneAnd(Update)
-
-// ReviewSchema.pre("findOneAndUpdate", async function (next) {
-//   this.review = await this.findOne();
-//   next();
-// });
-
-// ReviewSchema.post("findOneAndUpdate", async function () {
-//   this.review.constructor.calAvgRat(this.review.tour);
-// });
-
 const Review = mongoose.model("Review", ReviewSchema);
 
 module.exports = Review;

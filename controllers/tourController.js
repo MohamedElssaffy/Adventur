@@ -69,55 +69,6 @@ exports.topTours = (req, res, next) => {
 };
 
 exports.getAllTours = catchAsync(async (req, res, next) => {
-  // const queryObj = { ...req.query };
-
-  // const excludedFields = ["page", "sort", "limit", "fields"];
-
-  // excludedFields.forEach((fieldName) => delete queryObj[fieldName]);
-
-  // let queryStr = JSON.stringify(queryObj);
-
-  // queryStr = JSON.parse(
-  //   queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => "$" + match)
-  // );
-
-  // let query = Tour.find(queryStr);
-
-  // For Sorting
-
-  // if (req.query.sort) {
-  //   const sortBy = req.query.sort.split(",").join(" ");
-  //   query.sort(sortBy);
-  // } else {
-  //   query.sort("-createdAt");
-  // }
-
-  // Fields Select To Show
-
-  // if (req.query.fields) {
-  //   const fields = req.query.fields.split(",").join(" ");
-  //   query.select(fields);
-  // }
-
-  //  For Pagination
-
-  // const page = parseInt(req.query.page) || 1;
-  // const limit = parseInt(req.query.limit) || 100;
-  // const skip = (page - 1) * limit;
-
-  // if (req.query.page) {
-  //   const toursNum = await Tour.countDocuments();
-
-  //   if (skip >= toursNum) {
-  //     return res.status(404).json({
-  //       status: "fail",
-  //       message: "This Page Does Not Exist",
-  //     });
-  //   }
-  // }
-
-  // query.skip(skip).limit(limit);
-
   //  Query Excute
   const query = new AIPQueries(Tour.find(), req.query)
     .filterQuery()
