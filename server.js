@@ -17,7 +17,10 @@ const app = require("./app");
 
 //  DB Connect
 
-const uri = process.env.DB_URI.replace("<password>", process.env.DB_PASSWORD);
+const uri =
+  "mongodb+srv://" +
+  process.env.DB_URI.replace("password", process.env.DB_PASSWORD) +
+  "?retryWrites=true&w=majority";
 
 mongoose
   .connect(uri, {
