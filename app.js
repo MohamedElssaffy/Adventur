@@ -7,6 +7,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const hpp = require("hpp");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const compression = require("compression");
 
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -70,10 +71,9 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
-  next();
-});
+// For Compress Data
+
+app.use(compression());
 
 // 3) ROUTES
 

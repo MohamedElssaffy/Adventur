@@ -8,9 +8,7 @@ const stripe = () => {
 
 export const bookTour = async (tourId) => {
   try {
-    const res = await get(
-      `http://localhost:3000/api/v1/booking/checkout-session/${tourId}`
-    );
+    const res = await get(`/api/v1/booking/checkout-session/${tourId}`);
     const session = res.data.session;
     await stripe().redirectToCheckout({
       sessionId: session.id,
