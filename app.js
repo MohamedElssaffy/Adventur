@@ -15,6 +15,7 @@ const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const viewRouter = require("./routes/viewRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
+const bookingControll = require("./controllers/bookingControll");
 const AppError = require("./utils/appError");
 
 const app = express();
@@ -52,6 +53,12 @@ const limiter = rateLimit({
 });
 
 app.use("/api", limiter);
+
+// Route For Stripe WebHook Becuese Body Must Be Raw Parser
+
+app.post("/webhook-checkout", express.raw(), bookingControll.webhookStripe);
+
+// For Parser Body Reqeust
 
 app.use(express.json());
 
