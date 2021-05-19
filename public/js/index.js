@@ -12,6 +12,7 @@ const updatePasswordForm = document.querySelector(".form-user-password");
 const logOutBtn = document.querySelector(".nav__el--logout");
 const mapBox = document.getElementById("map");
 const bookBtn = document.getElementById("book-tour");
+const alertMessage = document.querySelector("body").dataset.alert;
 
 if (singUpForm) {
   singUpForm.addEventListener("submit", (e) => {
@@ -93,4 +94,8 @@ if (bookBtn) {
     bookBtn.textContent = "Processing...";
     bookTour(tourId);
   });
+}
+
+if (alertMessage) {
+  showAlert("success", alertMessage);
 }

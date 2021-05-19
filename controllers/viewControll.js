@@ -3,6 +3,16 @@ const Tour = require("../models/tour");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
+exports.alerts = (req, res, next) => {
+  const { alert } = req.query;
+
+  if (alert === "booking") {
+    res.locals.alert =
+      "Your booking was successful. if your booking dosen't show up here immediatly, please come back later.";
+  }
+  next();
+};
+
 exports.signUp = (req, res, next) => {
   res.render("sign-up");
 };

@@ -3,6 +3,8 @@ const viewControll = require("../controllers/viewControll");
 const authControll = require("../controllers/authControll");
 const bookingControll = require("../controllers/bookingControll");
 
+router.use(viewControll.alerts);
+
 router.get("/signup", viewControll.signUp);
 
 router.get("/", authControll.checkUserLogin, viewControll.getOverView);
