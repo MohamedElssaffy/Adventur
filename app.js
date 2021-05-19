@@ -56,7 +56,11 @@ app.use("/api", limiter);
 
 // Route For Stripe WebHook Becuese Body Must Be Raw Parser
 
-app.post("/webhook-checkout", express.raw(), bookingControll.webhookStripe);
+app.post(
+  "/webhook-checkout",
+  express.raw({ type: "application/json" }),
+  bookingControll.webhookStripe
+);
 
 // For Parser Body Reqeust
 
