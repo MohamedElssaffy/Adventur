@@ -43,7 +43,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 //   res.redirect("/");
 // });
 
-exports.webhookStripe = (req, res, next) => {
+exports.webhookStripe = async (req, res, next) => {
   const signature = req.headers["stripe-signature"];
 
   let event;
