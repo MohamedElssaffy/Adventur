@@ -8,6 +8,7 @@ const hpp = require("hpp");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const compression = require("compression");
+const cors = require("cors");
 
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -26,6 +27,14 @@ app.set("views", path.join(__dirname, "templates"));
 // 1) MIDDLEWARES
 
 app.use(express.static(path.join(__dirname, "public")));
+
+// Implement CORS For Simple Request
+
+app.use(cors());
+
+// Implement CORS For Non-Simple Request
+
+app.options("*", cors());
 
 // Set Securty HTTP Headers
 
